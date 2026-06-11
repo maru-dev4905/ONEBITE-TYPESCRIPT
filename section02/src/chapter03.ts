@@ -20,4 +20,4 @@ let config: {
 } = {
   apiKey: "My Key"
 }
-config.apiKey = '123123';
+// config.apiKey = '123123';
