@@ -1,40 +1,20 @@
 /**
- * 함수 타입 정의
+ * 함수 타입 표현식
  */
+type Operation = (a:number, b: number) => number;
 
-// 함수를 설명하기 가장 좋은 방법
-// 어떤 매개변수를 받고, 어떤 결과값을 반환하는지 이야기
-// 어떤 [타입의] 매개변수를 받고, 어떤 [타입의] 결과값을 반환하는지 이야기
-function func(a:number, b:number):number {
-  return a + b;
-}
+const add:Operation = (a, b) => a + b;
+const sub:Operation = (a, b) => a - b;
+const multiply:Operation = (a, b) => a * b;
+const divide:Operation = (a, b) => a / b;
 
 /**
- * 화살표 함수의 타입을 정의하는 방법
+ * 호출 시그니처 & 콜 시그니처
  */
-const add = (a:number, b:number):number => a + b;
-
-/**
- * 함수의 매개변수 
- * 선택적 매개변수는 필수적 매개변수 뒤에 와야한다.
- */
-function introduce(name = '이마루', tall?: number){
-  console.log(`name: ${name}`);
-  console.log(`tall: ${tall}`);
-
-  if(typeof tall === 'number'){
-    console.log(`tall: ${tall + 10}`);
-  }
+type Operation2 = {
+  (a:number, b:number): number;
 }
-
-introduce('lee maru', 190);
-introduce('lee maru');
-
-function getSum(...rest: number[]){
-  let sum = 0;
-  rest.forEach((it)=>(sum+=it));
-  return sum;
-}
-
-getSum(1, 2, 3) // 6
-getSum(1, 2, 3, 4, 5) // 15
+const add2:Operation2 = (a, b) => a + b;
+const sub2:Operation2 = (a, b) => a - b;
+const multiply2:Operation2 = (a, b) => a * b;
+const divide2:Operation2 = (a, b) => a / b;
