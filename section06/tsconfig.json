@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "module": "ESNext",
+    "target": "ESNext",
+    "outDir": "dist",
+    "strict": true,
+    // "strictNullChecks": false,
+    "moduleDetection": "force",
+    "allowJs": true
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "include": ["src"]
+}
