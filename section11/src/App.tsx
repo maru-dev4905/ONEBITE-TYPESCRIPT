@@ -1,4 +1,5 @@
-import {useState, useRef, useEffect, useReducer} from 'react';
+import React from 'react';
+import {useState, useRef, useEffect, useReducer, createContext, useContext} from 'react';
 import './App.css';
 import {Todo} from './types';
 
@@ -22,6 +23,20 @@ function reducer(state: Todo[], action:Action){
     default:
       return state;
   }
+}
+
+export const TodoStateContext = React.createContext<Todo[] | null>(null);
+export const TodoDispatchContext = React.createContext<{
+  onClickAdd: (text: string) => void;
+  onClickDelete: (id: number) => void;
+} | null>(null);
+
+export function useTodoDispatch(){
+  const dispatch = useContext(TodoDispatchContext);
+  if(!dispatch){
+    throw new Error('TodoDispatchContext is not found');
+  }
+  return dispatch;
 }
 
 function App() {
@@ -54,12 +69,17 @@ function App() {
   return (
     <div className="App">
       <h1>Todo</h1>
-      <Editor onClickAdd={onClickAdd} />
-      <ul>
-        {todos.map((todo)=>{
-          return <TodoItem key={todo.id} {...todo} onClickDelete={onClickDelete} />
-        })}
-      </ul>
+
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatchContext.Provider value={{onClickAdd, onClickDelete}}>
+          <Editor />
+          <ul>
+            {todos.map((todo)=>{
+              return <TodoItem key={todo.id} {...todo}/>
+            })}
+          </ul>
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </div>
   );
 }
