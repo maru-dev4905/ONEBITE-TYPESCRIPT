@@ -1,0 +1,18 @@
+import {Todo} from '../types';
+
+interface Props extends Todo {
+  onClickDelete: (id: number) => void;
+}
+
+export default function TodoItem(props: Props){
+  const onClickDelete = () => {
+    props.onClickDelete(props.id);
+  }
+
+  return (
+    <li>
+      {props.id}번 - {props.content}
+      <button onClick={onClickDelete}>삭제</button>
+    </li>
+  )
+}
